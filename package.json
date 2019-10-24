@@ -1,0 +1,20 @@
+{
+  "name": "NingMoe",
+  "version": "1.0.0",
+  "description": "柠萌瞬间的桌面版软件应用",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Electron",
+    "Anime",
+    "NingMoe",
+    "demo"
+  ],
+  "author": "羽韵",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.0.5"
+  }
+}

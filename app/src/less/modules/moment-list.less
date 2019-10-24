@@ -1,0 +1,151 @@
+.moment-list-box {
+	float: left;
+	margin: 20px 0px 0px 20px;
+	.box-title {
+		width: 960px;
+		height: 40px;
+		.title {
+			float: left;
+			font-size: 22px;
+			font-weight: bold;
+			color: #000;
+		}
+		.intro {
+			float: left;
+			font-size: 16px;
+			color: #808080;
+			padding-top: 8px;
+			text-indent: 6px;
+		}
+		.moment {
+			float: right;
+			font-size: 16px;
+			color: #808080;
+			padding-top: 8px;
+			&:hover {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+		}
+	}
+	.loading-tip {
+		position: fixed;
+		bottom: 30px;
+		left: 700px;
+		margin-left: -60px;
+		width: 120px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 18px;
+		text-align: center;
+		color: #fff;
+		border-radius: 20px;
+		background: #44cef6;
+		display: none;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+	}
+	.moment-list {
+		width: 960px;
+		.moment-video-wrap {
+			position: relative;
+			height: 235px;
+			&:hover {
+				cursor: pointer;
+			}
+			.post {
+				width: 470px;
+				height: 235px;
+				object-fit: cover;
+			}
+			.play-count {
+				background: url("https://dist.gaonengshe.com/dist/img/play_count.png") no-repeat 8px center rgba(0, 0, 0, 0.58);
+				background-size: auto 70%;
+				font-size: 14px;
+				padding: 4px 6px 4px 26px;
+				position: absolute;
+				left: 6px;
+				bottom: 6px;
+				border-radius: 4px;
+				font-weight: bolder;
+				color: #fff;
+			}
+			.video-time {
+				background: rgba(0, 0, 0, 0.58);
+				font-size: 14px;
+				padding: 4px 6px;
+				position: absolute;
+				right: 6px;
+				bottom: 6px;
+				border-radius: 4px;
+				font-weight: bolder;
+				color: #fff;
+			}
+			.play-btn {
+				background: url(https://dist.gaonengshe.com/dist/img/player_play_btn.png) no-repeat center;
+				position: absolute;
+				background-size: 100% auto;
+				top: 50%;
+				left: 50%;
+				width: 36px;
+				height: 40px;
+				margin: -20px 0 0 -18px;
+			}
+		}
+		.video-item {
+			float: left;
+			width: 470px;
+			height: 470px;
+			margin: 0px 20px 20px 0px;
+			border-radius: 6px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+			overflow: hidden;
+			&:nth-child(2n) {
+				margin-right: 0px;
+			}
+			.link-wrapper {
+				position: relative;
+				display: block;
+				padding: 10px 20px;
+				.bangumi-title {
+					text-align: center;
+					height: 40px;
+					line-height: 40px;
+					font-size: 16px;
+					color: #808080;
+				}
+				.avatar {
+					float: left;
+					width: 32px;
+					height: 32px;
+					object-fit: cover;
+					border-radius: 18px;
+					margin: 8px;
+				}
+				.username {
+					height: 32px;
+					line-height: 32px;
+					max-width: 320px;
+					font-size: 18px;
+					color: #808080;
+					margin: 8px;
+					.eps;
+				}
+				.title {
+					height: 30px;
+					line-height: 30px;
+					font-size: 20px;
+					color: #000;
+					.eps;
+				}
+				.description {
+					height: 75px;
+					line-height: 25px;
+					font-size: 18px;
+					color: #909090;
+					margin: 10px;
+					._overflowText(3);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,321 @@
+extends layout/default.pug
+block title
+	title 柠檬瞬间
+	
+block append content
+	.side-bar-wrap
+		include ./modules/side-bar.pug
+	.nav-bar-wrap
+		include ./modules/nav-bar.pug
+	.main-content-wrap.clearfix
+		.content.recommend.active
+			include ./modules/recommend-slide.pug
+			include ./modules/recommend-video.pug
+			include ./modules/today-anime.pug
+		.content.moment
+			include ./modules/moment-list.pug
+		.content.anime
+			include ./modules/anime-schedule.pug
+		.content.mine
+			include ./modules/user-info.pug
+		include ./modules/anime-detail.pug
+		include ./modules/search-result.pug
+	
+block append footer
+	// 登录注册弹窗
+	#loginDialog.modal.my-modal.my-modal-m(tabindex='-1', role='dialog', data-backdrop='none')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					span.title-bg1
+					h3.title 登录
+					span.title-bg2
+				.modal-body
+					form.login-form
+						input.tel(type='text', placeholder='请输入手机号', maxlength='11')
+						input.code(type='text', placeholder='请输入验证码', maxlength='6')
+						.get-code.btn-opt(onclick='sendMessage();') 获取验证码
+						p.login-tip * 未注册用户登录时将自动注册
+				.modal-footer
+					.login-btn.btn-opt(onclick='submit();') 登录/注册
+			.close.icon-close(data-dismiss='modal', aria-label='Close')
+				span(aria-hidden='true')
+	// Video弹窗
+	#videoDialog.modal.my-modal.my-modal-xl(tabindex='-1', role='dialog', data-backdrop='none')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					h3.title
+				.modal-body
+					#video
+				.modal-footer
+			.close.icon-close(data-dismiss='modal', aria-label='Close')
+				span(aria-hidden='true')
+	script(src="js/inline/index.js")
+	// 顶部slide模板
+	script#tpl-top-slide(type='x-tmpl-mustache').
+		<div class="swiper-wrapper">
+			{{#data}}
+				<div class="swiper-slide">
+					<a class="link-wrapper" data-bangumi="{{uuid}}" title="{{title}}">
+						<img src="{{cover}}" alt="{{title}}"  onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{title}}</p>
+						</div>
+					</a>
+				</div>
+			{{/data}}
+		</div>
+	// 顶部video模板
+	script#tpl-top-video(type='x-tmpl-mustache').
+		{{#data}}
+			<div class="video-item">
+				<a class="link-wrapper" href="javascript:void(0);" data-link="{{url}}" data-uuid="{{uuid}}">
+					<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+					<div class="title-bg">
+						<p class="title">{{title}}</p>
+					</div>
+					<div class="video-mask" title="{{title}}">
+						<p class="title">{{title}}</p>
+						<p class="author">UP主：{{user.username}}</p>
+						<p class="num">播放量：{{video_play_count}}</p>
+					</div>
+				</a>
+			</div>
+		{{/data}}
+	// 今日新番模板
+	script#tpl-today-anime(type='x-tmpl-mustache').
+		{{#data}}
+			<div class="video-item">
+				<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+					<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+					<div class="title-bg">
+						<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+					</div>
+					<div class="video-mask">
+						<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						<p class="eps">更新至：{{new_eps}}</p>
+						<p class="time">今日{{begin}}更新</p>
+					</div>
+				</a>
+			</div>
+		{{/data}}
+	// 搜索结果模板
+	script#tpl-search-result(type='x-tmpl-mustache').
+		{{#data}}
+			<div class="bangumi-wrapper clearfix" data-bangumi="{{bangumi_id}}">
+				<div class="bangumi-back" style="background-image: url('{{classification.bangumi_cover}}');"></div>
+				<img class="post" src="{{classification.bangumi_cover}}" alt="video-post" onerror="imgError();"/>
+				<div class="text-box">
+					<p class="cn-title" title="{{classification.cn_name}}{{^classification.cn_name}}{{classification.en_name}}{{/classification.cn_name}}">{{classification.cn_name}}{{^classification.cn_name}}{{classification.en_name}}{{/classification.cn_name}}</p>
+					<p class="en-title" title="{{classification.en_name}}">{{classification.en_name}}</p>
+					<p class="all-eps">全{{classification.eps}}话</p>
+					<p class="play-time">{{classification.air_date}} 开播</p>
+					<p class="description" title="{{classification.description}}">{{classification.description}}</p>
+				</div>
+			</div>
+		{{/data}}
+	// 用户最爱番剧模板
+	script#tpl-liked-anime(type='x-tmpl-mustache').
+		{{#data.bangumi}}
+			<div class="video-item">
+				<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{id}}">
+					<img class="post" src="{{bangumi_cover}}" alt="video-post" onerror="imgError();"/>
+					<div class="title-bg">
+						<p class="title">{{#cn_name}}{{cn_name}}{{/cn_name}}{{^cn_name}}{{en_name}}{{/cn_name}}</p>
+					</div>
+					<div class="video-mask">
+						<p class="title">{{#cn_name}}{{cn_name}}{{/cn_name}}{{^cn_name}}{{en_name}}{{/cn_name}}</p>
+						<p class="eps">更新至：第{{eps}}集</p>
+						<p class="time">{{air_date}}开播</p>
+					</div>
+				</a>
+			</div>
+		{{/data.bangumi}}
+	// 番剧详情模板
+	script#tpl-anime-detail(type='x-tmpl-mustache').
+		{{#data}}
+			<div class="anime-item">
+				<div class="bangumi-back" style="background-image: url('{{bangumi.bangumi_cover}}');"></div>
+				<div class="bangumi-wrapper clearfix">
+					<img class="post" src="{{bangumi.bangumi_cover}}" alt="video-post" onerror="imgError();"/>
+					<div class="text-box">
+						<p class="cn-title" title="{{bangumi.cn_name}}{{^bangumi.cn_name}}{{bangumi.en_name}}{{/bangumi.cn_name}}">{{bangumi.cn_name}}{{^bangumi.cn_name}}{{bangumi.en_name}}{{/bangumi.cn_name}}</p>
+						<p class="en-title" title="{{bangumi.en_name}}">{{bangumi.en_name}}</p>
+						<p class="all-eps">全{{bangumi.eps}}话</p>
+						<p class="play-time">{{bangumi.air_date}} 开播</p>
+						<div class="rate-box">
+							<p class="score">4.8</p>
+							<p class="num">2人评分</p>
+						</div>
+						<span class="heart btn-opt" title="点击收藏，方便查找" data-bangumi="{{bangumi.id}}"></span>
+						<p class="best-like">{{bangumi.best_like_count}}人标记为最爱</p>
+					</div>
+					<ul class="play-list-ul clearfix">
+						{{#posts}}
+							<li class="play-list" data-link="{{url}}" data-back-link="{{bak_url}}" title="{{eps_name}}">{{eps_name}}</li>
+						{{/posts}}
+					</ul>
+				</div>
+				<div class="comment-list-box">
+					<p class="comment-title">评论</p>
+					<div class="comment-list clearfix"></div>
+				</div>
+			</div>
+		{{/data}}
+	// 番剧详情评论模板
+	script#tpl-anime-detail-comment(type='x-tmpl-mustache').
+		{{^data.rows}}<p class="no-comment">暂无评论</p>{{/data.rows}}
+		{{#data.rows}}
+			<img class="avatar" src="{{user.avatar}}" alt="avatar" onerror="imgError();"/>
+			<p class="username">{{user.username}}</p>
+			<p class="time">{{create_date}}</p>
+			<p class="content">{{content}}</p>
+		{{/data.rows}}
+	// 最美瞬间模板
+	script#tpl-moment-list(type='x-tmpl-mustache').
+		{{#data}}
+			<div class="video-item">
+				<div class="moment-video-wrap" data-link="{{url}}">
+					<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+					<span class="play-count">{{video_play_count}}</span>
+					<span class="video-time">{{video_time}}</span>
+					<span class="play-btn"></span>
+				</div>
+				<a class="link-wrapper" href="javascript:void(0);" data-link="{{uuid}}">
+					<p class="bangumi-title"> —— {{classification.cn_name}} —— </p>
+					<img class="avatar" src="{{user.avatar}}" alt="avatar" onerror="imgError();"/>
+					<p class="username">{{user.username}}</p>
+					<p class="title" title="{{title}}">{{title}}</p>
+					<p class="description" title="{{description}}">{{description}}</p>
+				</a>
+			</div>
+		{{/data}}
+	// 新番时间表模板
+	script#tpl-anime-schedule(type='x-tmpl-mustache').
+		<div class="week-anime">
+			<p class="week-title">星期一</p>
+			{{#Mon}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Mon}}
+		</div>
+		<div class="week-anime">
+			<p class="week-title">星期二</p>
+			{{#Tues}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Tues}}
+		</div>
+		<div class="week-anime">
+			<p class="week-title">星期三</p>
+			{{#Wed}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Wed}}
+		</div>
+		<div class="week-anime">
+			<p class="week-title">星期四</p>
+			{{#Thur}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Thur}}
+		</div>
+		<div class="week-anime">
+			<p class="week-title">星期五</p>
+			{{#Fri}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Fri}}
+		</div>
+		<div class="week-anime">
+			<p class="week-title">星期六</p>
+			{{#Sat}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Sat}}
+		</div>
+		<div class="week-anime">
+			<p class="week-title">星期日</p>
+			{{#Sun}}
+				<div class="video-item">
+					<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi_id}}">
+						<img class="post" src="{{cover}}" alt="video-post" onerror="imgError();"/>
+						<div class="title-bg">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+						</div>
+						<div class="video-mask">
+							<p class="title">{{#titleTranslate.zh-Hans}}{{titleTranslate.zh-Hans}}{{/titleTranslate.zh-Hans}}{{^titleTranslate.zh-Hans}}{{title}}{{/titleTranslate.zh-Hans}}</p>
+							<p class="author">更新至：{{new_eps}}</p>
+							<p class="num">{{begin}}更新</p>
+						</div>
+					</a>
+				</div>
+			{{/Sun}}
+		</div>

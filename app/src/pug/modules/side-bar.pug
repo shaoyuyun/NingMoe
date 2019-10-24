@@ -1,0 +1,23 @@
+.info-center-box
+	.not-login
+		img.avatar(src="./images/noavatar_big.gif", alt="avatar", onerror="imgError();")
+		p.not-login-tip 您还未登录，请
+		ul.login-box.clearfix
+			li.login(data-toggle='modal', data-target='#loginDialog') 登录
+			li.register(data-toggle='modal', data-target='#loginDialog') 注册
+	.already-login
+		img.avatar(src="./images/noavatar_big.gif", alt="avatar", onerror="imgError();")
+		p.already-login-tip 欢迎您
+		p.username
+.menu-box
+	ul.menu-list-ul
+		li.menu-list.active
+			p.recommend 推荐
+		li.menu-list
+			p.moment 瞬间
+		li.menu-list
+			p.anime 番剧
+		li.menu-list
+			p.mine 我的
+	.qrcode-box
+		img.qrcode(src="./images/qrcode.png", alt="qrcode", title="扫码手机浏览柠萌")

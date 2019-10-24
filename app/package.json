@@ -1,0 +1,38 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "gulp h5 demo ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zheng",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-less": "^3.0.5",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "imagemin-pngquant": "^5.0.1"
+  },
+  "devDependencies": {
+    "electron": "^6.0.12",
+    "electron-packager": "^14.0.6",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.5.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-less": "^3.5.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-uglify": "^3.0.1",
+    "imagemin-pngquant": "^5.1.0",
+    "less-plugin-autoprefix": "^1.5.1"
+  }
+}

@@ -1,0 +1,250 @@
+.anime-detail-box {
+	float: left;
+	margin: 20px 0px 0px 20px;
+	display: none;
+	.box-title {
+		width: 960px;
+		height: 40px;
+		.title {
+			float: left;
+			font-size: 22px;
+			font-weight: bold;
+			color: #000;
+		}
+	}
+	.anime-detail {
+		width: 960px;
+		margin-top: 10px;
+		.anime-item {
+			position: relative;
+			.bangumi-back {
+				position: absolute;
+				top: -8px;
+				left: -8px;
+				width: 578px;
+				height: 346px;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				opacity: 0.1;
+				border-radius: 12px;
+			}
+			.bangumi-wrapper {
+				float: left;
+				width: 570px;
+				.post {
+					float: left;
+					width: 246px;
+					height: 330px;
+					object-fit: cover;
+					border-radius: 16px;
+					box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+				}
+				.text-box {
+					float: left;
+					position: relative;
+					width: 300px;
+					height: 314px;
+					margin: 8px 12px;
+					.cn-title {
+						font-size: 24px;
+						font-weight: bold;
+						line-height: 30px;
+						color: #000;
+						._overflowText(2);
+					}
+					.en-title {
+						font-size: 16px;
+						color: #9b9b9b;
+						line-height: 26px;
+						margin-bottom: 20px;
+						._overflowText(2);
+					}
+					.all-eps, .play-time {
+						font-size: 18px;
+						color: #9b9b9b;
+						height: 30px;
+						line-height: 30px;
+					}
+					.play-time {
+						margin-bottom: 20px;
+					}
+					.rate-box {
+						position: absolute;
+						bottom: 50px;
+						left: 60px;
+						.score {
+							font-size: 36px;
+							height: 40px;
+							line-height: 40px;
+							font-weight: bold;
+							color: #ff7474;
+						}
+						.num {
+							font-size: 16px;
+							height: 20px;
+							line-height: 20px;
+							color: #000;
+						}
+					}
+					.heart {
+						position: absolute;
+						bottom: 0px;
+						left: 0px;
+						width: 32px;
+						height: 32px;
+						background: url('../images/best_like.png') no-repeat center;
+						background-size: 32px;
+						transition: all .4s;
+						&.liked {
+							transition: all .4s;
+							background: url('../images/best_liked.png') no-repeat center;
+							background-size: 32px;
+						}
+					}
+					.best-like {
+						position: absolute;
+						bottom: 0px;
+						left: 40px;
+						height: 32px;
+						line-height: 32px;
+						font-size: 20px;
+						color: #ff7474;
+						.eps;
+					}
+				}
+				.play-list-ul {
+					float: left;
+					width: 570px;
+					padding: 20px 0px 10px 0px;
+					.play-list {
+						float: left;
+						width: 128px;
+						height: 40px;
+						line-height: 40px;
+						font-size: 20px;
+						color: #9b9b9b;
+						text-align: center;
+						border: 1px solid #9b9b9b;
+						border-radius: 8px;
+						margin: 0px 16px 16px 0px;
+						.eps;
+						&:nth-child(4n) {
+							margin-right: 0px;
+						}
+						&:hover {
+							cursor: pointer;
+						}
+					}
+				}
+			}
+			.comment-list-box {
+				float: left;
+				width: 348px;
+				padding: 0px 10px;
+				margin: 0px 0px 20px 20px;
+				border: 1px dashed #ccc;
+				border-radius: 16px;
+				.comment-title {
+					float: left;
+					font-size: 20px;
+					height: 40px;
+					line-height: 30px;
+					margin-top: -50px;
+					font-weight: bold;
+					color: #000;
+				}
+				.comment-list {
+					width: 348px;
+					.no-comment {
+						height: 50px;
+						line-height: 50px;
+						color: #9b9b9b;
+						text-align: center;
+						font-size: 20px;
+					}
+					.avatar {
+						float: left;
+						width: 48px;
+						height: 48px;
+						object-fit: cover;
+						border-radius: 24px;
+						margin-right: 6px;
+						margin-top: 10px;
+					}
+					.username {
+						float: left;
+						width: 294px;
+						height: 26px;
+						line-height: 26px;
+						font-size: 18px;
+						color: #000;
+						margin-top: 10px;
+					}
+					.time {
+						width: 294px;
+						height: 22px;
+						line-height: 22px;
+						font-size: 16px;
+						color: #9b9b9b;
+						max-width: 320px;
+						.eps;
+					}
+					.content {
+						display: block;
+						padding: 8px 12px 20px 54px;
+						min-height: 30px;
+						line-height: 30px;
+						font-size: 18px;
+						color: #000;
+						border-bottom: 1px dashed #ccc;
+					}
+				}
+			}
+		}
+	}
+	.comment-box {
+		position: fixed;
+		bottom: 30px;
+		right: 30px;
+		height: 50px;
+		.comment-input {
+			position: absolute;
+			right: 54px;
+			width: 0px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 18px;
+			color: #000;
+			border: none;
+			padding: 0px;
+			background-color: #ebebeb;
+			border-radius: 25px 0px 0px 25px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+			transition: all .6s;
+			&.active {
+				transition: all .6s;
+				width: 844px;
+				border: 1px solid #ccc;
+				padding: 0px 20px;
+			}
+		}
+		.comment-btn {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			width: 32px;
+			height: 32px;
+			padding: 9px;
+			border: 1px solid #f1594b;
+			background-color: #f1594b;
+			border-radius: 25px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+			transition: all .6s;
+			&.active {
+				transition: all .6s;
+				border-radius: 0px 25px 25px 0px;
+			}
+		}
+	}
+}

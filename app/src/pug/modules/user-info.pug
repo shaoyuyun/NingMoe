@@ -1,0 +1,22 @@
+.user-info-box
+	.box-title
+		p.title 个人中心
+	.user-info
+		.not-login.clearfix
+			img.avatar(src="./images/noavatar_big.gif", alt="avatar", onerror="imgError();")
+			p.not-login-tip 您还未登录，请
+			ul.login-box.clearfix
+				li.login(data-toggle='modal', data-target='#loginDialog') 登录
+				li.register(data-toggle='modal', data-target='#loginDialog') 注册
+		.already-login.clearfix
+			img.avatar(src="./images/noavatar_big.gif", alt="avatar", onerror="imgError();")
+			p.username
+			p.sex
+			p.birthday
+			p.fans-count
+			p.follow-count
+			p.create-date
+	.box-title
+		p.title 收藏番剧
+	.anime-box
+	p.no-liked 暂无喜爱番剧
