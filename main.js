@@ -15,7 +15,6 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1201,
     height: 720,
-    frame: true,
     useContentSize: true,
     darkTheme: true,
     icon: ICON,

@@ -1,12 +1,12 @@
 {
-  "name": "",
+  "name": "NingMoe",
   "version": "1.0.0",
   "description": "gulp h5 demo ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "zheng",
+  "author": "YuYun",
   "license": "ISC",
   "dependencies": {
     "gulp": "^3.9.1",

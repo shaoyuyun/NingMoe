@@ -4,7 +4,27 @@
   "description": "柠萌瞬间的桌面版软件应用",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder --win --x64"
+  },
+  "build": {
+    "productName":"柠萌瞬间",
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "柠萌瞬间"
+    },
+    "appId": "com.ningmoe.app",
+    "mac": {
+      "target": ["dmg","zip"]
+    },
+    "win": {
+      "icon": "icon.jpg",
+      "target": ["nsis","zip"]
+    }
   },
   "keywords": [
     "Electron",
