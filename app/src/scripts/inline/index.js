@@ -811,6 +811,18 @@ function userLikedAnime(bangumId) {
 	likeAnime.remove('0');
 	likeAnime = likeAnime.sort(function(a, b){return b - a});
 	if (likeAnime.length > 0) {
+		$('.user-info-box .no-liked').hide();
+
+		function renderLikedAnime(data) {
+			var template  = $('#tpl-liked-anime').html();
+			Mustache.parse(template);
+			var _html = Mustache.render(template, data);
+			$('.user-info-box .anime-box').html(_html);
+		}
+
+		var resultData = {
+			data: []
+		}
 		for (var i = 0; i < likeAnime.length; i++) {
 			$.ajax({
 				url: API_URL + 'get_bangumi',
@@ -820,16 +832,10 @@ function userLikedAnime(bangumId) {
 					bangumi_id: likeAnime[i]
 				},
 				success: function(data) {
-					$('.user-info-box .no-liked').hide();
-					renderLikedAnime(data);
+					resultData.data.push(data.data);
+					resultData.data.sort(function(a, b){return b.bangumi.bgm_id - a.bangumi.bgm_id});
 
-					function renderLikedAnime(data) {
-						var template  = $('#tpl-liked-anime').html();
-						Mustache.parse(template);
-						var _html = Mustache.render(template, data);
-						$('.user-info-box .anime-box').append(_html);
-					}
-
+					renderLikedAnime(resultData);
 				}
 			});
 		}

@@ -262,21 +262,21 @@
     </script>
     <!-- 用户最爱番剧模板-->
     <script id="tpl-liked-anime" type="x-tmpl-mustache">
-      {{#data.bangumi}}
+      {{#data}}
       	<div class="video-item">
-      		<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{id}}">
-      			<img class="post" src="{{bangumi_cover}}" alt="video-post" onerror="imgError();"/>
+      		<a class="link-wrapper" href="javascript:void(0);" data-bangumi="{{bangumi.id}}">
+      			<img class="post" src="{{bangumi.bangumi_cover}}" alt="video-post" onerror="imgError();"/>
       			<div class="title-bg">
-      				<p class="title">{{#cn_name}}{{cn_name}}{{/cn_name}}{{^cn_name}}{{en_name}}{{/cn_name}}</p>
+      				<p class="title">{{#bangumi.cn_name}}{{bangumi.cn_name}}{{/bangumi.cn_name}}{{^bangumi.cn_name}}{{bangumi.en_name}}{{/bangumi.cn_name}}</p>
       			</div>
       			<div class="video-mask">
-      				<p class="title">{{#cn_name}}{{cn_name}}{{/cn_name}}{{^cn_name}}{{en_name}}{{/cn_name}}</p>
-      				<p class="eps">更新至：第{{eps}}集</p>
-      				<p class="time">{{air_date}}开播</p>
+      				<p class="title">{{#bangumi.cn_name}}{{bangumi.cn_name}}{{/bangumi.cn_name}}{{^bangumi.cn_name}}{{bangumi.en_name}}{{/bangumi.cn_name}}</p>
+      				<p class="eps">更新至：第{{bangumi.eps}}集</p>
+      				<p class="time">{{bangumi.air_date}}开播</p>
       			</div>
       		</a>
       	</div>
-      {{/data.bangumi}}
+      {{/data}}
     </script>
     <!-- 番剧详情模板-->
     <script id="tpl-anime-detail" type="x-tmpl-mustache">
