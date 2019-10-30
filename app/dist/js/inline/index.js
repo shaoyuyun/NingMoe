@@ -914,7 +914,8 @@ function userLikedAnime(bangumId) {
 		var scrollTop = $(this).scrollTop();
 		var scrollHeight = $(document).height();
 		var windowHeight = $(this).height();
-		if (scrollTop + windowHeight == scrollHeight) {
+		var pageIndex = $('.main-content-wrap .content.active').index();
+		if (scrollTop + windowHeight == scrollHeight && pageIndex == 1) {
 			$('.moment-list-box .loading-tip').fadeIn(200);
 			momentList('more');
 		}
