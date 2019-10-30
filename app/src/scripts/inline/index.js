@@ -113,9 +113,7 @@ function todayAnime() {
 			for (var i = 0; i < data.data.length; i++) {
 				if (data.data[i].titleTranslate['zh-Hans']) {
 					if (data.data[i].titleTranslate['zh-Hans'].length > 1) {
-						data.data[i].titleTranslate['zh-Hans'] = data.data[i].titleTranslate['zh-Hans'][1];
-					} else if (data.data[i].titleTranslate['zh-Hans'].length > 2) {
-						data.data[i].titleTranslate['zh-Hans'] = data.data[i].titleTranslate['zh-Hans'][2];
+						data.data[i].titleTranslate['zh-Hans'] = data.data[i].titleTranslate['zh-Hans'][0];
 					}
 				}
 				data.data[i].begin = data.data[i].begin.substr(11, 5);
@@ -473,9 +471,7 @@ function animeSchedule() {
 				for (var j = 0; j < data[i].length; j++) {
 					if (data[i][j].titleTranslate['zh-Hans']) {
 						if (data[i][j].titleTranslate['zh-Hans'].length > 1) {
-							data[i][j].titleTranslate['zh-Hans'] = data[i][j].titleTranslate['zh-Hans'][1];
-						} else if (data[i][j].titleTranslate['zh-Hans'].length > 2) {
-							data[i][j].titleTranslate['zh-Hans'] = data[i][j].titleTranslate['zh-Hans'][2];
+							data[i][j].titleTranslate['zh-Hans'] = data[i][j].titleTranslate['zh-Hans'][0];
 						}
 					}
 					
