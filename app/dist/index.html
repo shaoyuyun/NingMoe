@@ -192,6 +192,23 @@
         <div class="close icon-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></div>
       </div>
     </div>
+    <!-- 更新弹窗-->
+    <div class="modal my-modal my-modal-m" id="updateDialog" tabindex="-1" role="dialog" data-backdrop="none">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><span class="title-bg1"></span>
+            <h3 class="title">有新版本</h3><span class="title-bg2"></span>
+          </div>
+          <div class="modal-body">
+            <p class="update-tip">新版本已下载完成，快点击按钮更新应用吧~！</p>
+          </div>
+          <div class="modal-footer">
+            <div class="update-btn btn-opt" onclick="ipc.send(&quot;isUpdateNow&quot;);">更新应用</div>
+          </div>
+        </div>
+        <div class="close icon-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></div>
+      </div>
+    </div>
     <script src="js/inline/index.js"></script>
     <!-- 顶部slide模板-->
     <script id="tpl-top-slide" type="x-tmpl-mustache">

@@ -102,7 +102,7 @@ function topVideo() {
 // 今日新番数据渲染
 function todayAnime() {
 	$.ajax({
-		url: 'https://www.ningmoe.com/bangumi.json',
+		url: 'https://www.ningmoe.com/static/bangumi/bangumi.json',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -463,7 +463,7 @@ function animeDetail(bangumId) {
 // 新番时间表数据渲染
 function animeSchedule() {
 	$.ajax({
-		url: 'https://www.ningmoe.com/bangumi.json',
+		url: 'https://www.ningmoe.com/static/bangumi/bangumi.json',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -841,7 +841,24 @@ function userLikedAnime(bangumId) {
 }
 
 !(function($) {
+	// 组件销毁前移除所有事件监听channel
+	// remove只能移除单个事件，单独封装removeAll移除所有事件
+	ipc.removeAllListeners(["message", "downloadProgress", "isUpdateNow"]);
 
+	ipc.send("checkForUpdate");
+
+	ipc.on("message", (event, text) => {
+		console.log(arguments);
+		this.tips = text;
+	});
+	// 注意：“downloadProgress”事件可能存在无法触发的问题，只需要限制一下下载网速就好了
+	ipc.on("downloadProgress", (event, progressObj)=> {
+		console.log(progressObj);
+		this.downloadPercent = progressObj.percent || 0;
+	});
+	ipc.on("updateDownloaded", () => {
+		$('#updateDialog').modal('show');
+	});
 	// 检查最近是否登录
 	isRecentLogin();
 	// 登录弹窗回车处理

@@ -8,7 +8,7 @@
     "dist": "electron-builder --win --x64"
   },
   "build": {
-    "productName":"柠萌瞬间",
+    "productName": "柠萌瞬间",
     "nsis": {
       "oneClick": false,
       "allowElevation": true,
@@ -19,11 +19,17 @@
     },
     "appId": "com.ningmoe.app",
     "mac": {
-      "target": ["dmg","zip"]
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
       "icon": "icon.jpg",
-      "target": ["nsis","zip"]
+      "target": [
+        "nsis",
+        "zip"
+      ]
     }
   },
   "keywords": [
@@ -36,5 +42,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^6.0.5"
+  },
+  "dependencies": {
+    "electron-updater": "^4.2.0"
   }
 }
