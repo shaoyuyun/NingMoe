@@ -41,7 +41,7 @@
   "author": "羽韵",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.5"
+    "electron": "^7.2.4"
   },
   "dependencies": {
     "electron-updater": "^4.2.0"
